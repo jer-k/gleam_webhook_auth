@@ -82,12 +82,11 @@ fn request_body(req: Request(Connection)) {
 }
 
 fn expected_signature(request_body: BitArray) -> BitArray {
-  let hmac =
-    crypto.hmac(request_body, crypto.Sha256, secret())
-    |> bit_array.base16_encode
-    |> string.lowercase
-
-  string.append("sha256=", hmac) |> bit_array.from_string
+  crypto.hmac(request_body, crypto.Sha256, secret())
+  |> bit_array.base16_encode
+  |> string.lowercase
+  |> string.append("sha256=", _)
+  |> bit_array.from_string
 }
 
 fn is_valid_request(request_body: BitArray, digest: Result(BitArray, Nil)) {
