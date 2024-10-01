@@ -6,7 +6,6 @@ import gleam/erlang/process
 import gleam/http
 import gleam/http/request.{type Request}
 import gleam/http/response.{type Response}
-import gleam/io
 import gleam/result
 import gleam/string
 import logging
@@ -64,7 +63,6 @@ fn secret() {
   case envoy.get("WEBHOOK_SECRET") {
     Ok(secret) -> bit_array.from_string(secret)
     Error(_) -> {
-      io.debug("DIDNT GET ENVVAR")
       bit_array.from_string("ERROR")
     }
   }
